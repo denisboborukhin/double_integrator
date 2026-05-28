@@ -52,8 +52,8 @@ class Problem6App:
         self.title_font = pygame.font.SysFont("Arial", 30, bold=True)
         self.panel_font = pygame.font.SysFont("Arial", 19, bold=True)
         self.params = {
-            "p0": Parameter("p0", 6.0, 0.5, -10.0, 10.0),
-            "v0": Parameter("v0", -2.0, 0.5, -8.0, 8.0),
+            "p0": Parameter("p0", 0.0, 0.5, -10.0, 10.0),
+            "v0": Parameter("v0", 4.0, 0.5, -8.0, 8.0),
             "amax": Parameter("amax", 1.5, 0.25, 0.25, 5.0),
         }
         self.playing = True

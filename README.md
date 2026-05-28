@@ -1,4 +1,4 @@
-# Seminar 1. Bang-Bang Time-Optimal Control for the Double Integrator
+# Bang-Bang Time-Optimal Control for the Double Integrator
 
 ![Arbitrary Initial Position and Velocity, Transfer to Zero animation](docs/problem6_animation.gif)
 
@@ -22,9 +22,9 @@ This seminar studies such solutions for the one-dimensional double integrator.
 ## Model
 
 The main system is
-$$
+```math
 \dot p = v, \qquad \dot v = a, \qquad |a| \le \bar a,
-$$
+```
 where:
 - $p$ is the position,
 - $v$ is the velocity,
@@ -32,9 +32,9 @@ where:
 - $\bar a > 0$ is the maximum admissible acceleration.
 
 In the first two problems, we also consider the reduced model
-$$
+```math
 \dot p = a, \qquad |a| \le \bar a.
-$$
+```
 
 ---
 
@@ -45,9 +45,9 @@ The theoretical background is **Pontryagin's Maximum Principle (PMP)**. Its main
 > if the control is bounded and enters the dynamics linearly, then in a time-optimal problem the optimal control usually takes extreme values.
 
 So instead of searching over all possible admissible controls, we are led to expect controls of the form
-$$
+```math
 a(t) \in \{-\bar a,\bar a\}.
-$$
+```
 
 That is exactly the bang-bang structure.
 
@@ -74,9 +74,9 @@ So PMP gives the qualitative structure, and the rest is obtained by direct compu
 ## Phase-plane viewpoint
 
 For the double integrator, it is convenient to work on the phase plane with coordinates
-$$
+```math
 (p,v).
-$$
+```
 
 There, the main object is the **switching curve**: the set of states at which the optimal control changes sign.
 
@@ -118,94 +118,94 @@ This repository includes a small interactive Pygame project for Arbitrary Initia
 ### Theory
 
 We consider the double integrator
+
 $$
 \dot p = v, \qquad \dot v = a, \qquad |a| \le \bar a,
 $$
+
 with initial conditions
+
 $$
 p(0)=p_0, \qquad v(0)=v_0,
 $$
+
 and terminal conditions
+
 $$
 p(t_f)=0, \qquad v(t_f)=0.
 $$
 
 The useful comparison motion is immediate braking against the initial velocity:
+
 $$
-a(t)=-\bar a\,\operatorname{sgn}(v_0).
+a(t)=-\bar a\,\text{sgn}(v_0).
 $$
 
 If this control is applied until the velocity becomes zero, then
+
 $$
 t_{\mathrm{stop}}=\frac{|v_0|}{\bar a},
 $$
+
 and the stopping position is
+
 $$
 p_{\mathrm{stop}}
 =p_0+\frac{v_0|v_0|}{2\bar a}.
 $$
 
 Introduce
+
 $$
 B = 2\bar a\,p_0 + v_0|v_0|.
 $$
+
 Since
+
 $$
 B = 2\bar a\,p_{\mathrm{stop}},
 $$
-the sign of `B` tells us on which side of the origin the system would stop under immediate braking.
 
-If
+the sign of $B$ tells us on which side of the origin the system would stop under immediate braking.
+
+If $B=0$, then immediate braking reaches the origin exactly, so
+
 $$
-B=0,
+a^*(t)=-\bar a\,\text{sgn}(v_0), \qquad 0\le t\le t_f,
 $$
-then immediate braking reaches the origin exactly, so
-$$
-a^*(t)=-\bar a\,\operatorname{sgn}(v_0),
-\qquad 0\le t\le t_f,
-$$
+
 with
+
 $$
 t_f=\frac{|v_0|}{\bar a}.
 $$
 
-If
+If $B\neq 0$, the optimal control has one switching. Define
+
 $$
-B\neq 0,
-$$
-the optimal control has one switching. Define
-$$
-j=-\operatorname{sgn}(B).
-$$
-Then
-$$
-a^*(t)=
-\begin{cases}
-j\bar a, & 0\le t<t_1,\\
--j\bar a, & t_1\le t\le t_f.
-\end{cases}
+j=-\text{sgn}(B).
 $$
 
-Writing
-$$
-t_f=t_1+t_2,
-$$
-the switching durations are
+Then writing $t_f=t_1+t_2$, the switching durations are
+
 $$
 t_2=\sqrt{\frac{v_0^2-2j\bar a\,p_0}{2\bar a^2}},
 $$
+
 $$
 t_1=t_2-\frac{jv_0}{\bar a},
 $$
+
 and
+
 $$
 t_f=t_1+t_2.
 $$
 
 Thus:
-- if `B > 0`, the first acceleration is negative;
-- if `B < 0`, the first acceleration is positive;
-- if `B = 0`, no switching is needed.
+- if $B > 0$, the first acceleration is negative;
+- if $B < 0$, the first acceleration is positive;
+- if $B = 0$, no switching is needed.
 
 ### Run the animation
 
@@ -220,11 +220,8 @@ The animation shows:
 - the one-dimensional motion toward the origin;
 - the phase-plane path $(p,v)$;
 - the time histories of $p(t)$, $v(t)$, and $a(t)$;
-- the sign of
-  $$
-  B = 2\bar a p_0 + v_0|v_0|
-  $$
-  and the corresponding first acceleration arc.
+- the sign of `B = 2*a_bar*p0 + v0*|v0|` and the corresponding first acceleration arc;
+- the default preview starts at `p0 = 0`, moves away from the origin under the initial velocity, switches control, and returns to zero.
 
 Keyboard controls:
 - `Q` / `A`: increase / decrease `p0`;
@@ -235,7 +232,7 @@ Keyboard controls:
 - `Left` / `Right`: change animation speed;
 - `Esc`: quit.
 
-The solver logic is in `problem6_pygame/solver.py`, and the Pygame visualization is in `problem6_pygame/app.py`.
+The solver logic is in `double_integrator_pygame/solver.py`, and the Pygame visualization is in `double_integrator_pygame/app.py`.
 
 To regenerate the README animation preview:
 
